@@ -26,7 +26,7 @@ public class SubscriptionRequest {
 	message = "Request Id is not in valid format")
 	private String requestId;
 	
-	@NotNull(message = "Email cannot be empty")
+	@NotNull(message = "Email is mandatory")
 	@Email(message = "Not a valid email format", regexp = "^[-A-Za-z0-9~!$%^&*_=+}{\\'?]+(\\.[-A-Za-z0-9~!$%^&*_=+}{\\'?]+)*@([a-z0-9_][-a-z0-9_]*(\\.[-a-z0-9_]+)*\\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}))(:[0-9]{1,5})?$")
 	private String email;
 }

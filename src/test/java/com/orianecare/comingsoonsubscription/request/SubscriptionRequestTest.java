@@ -24,7 +24,7 @@ class SubscriptionRequestTest {
 	String requestIdMessage="RequestId is mandatory";
 	String requestIdNotValidMessage="Request Id is not in valid format";
 	String notValidFormat="Not a valid email format";
-	String cannotBeBlank = "Email cannot be empty";
+	String cannotBeBlank = "Email is mandatory";
 	
 	private SubscriptionRequest subscriptionRequest;
 	private Validator validator;
