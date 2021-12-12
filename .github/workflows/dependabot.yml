@@ -1,17 +1,6 @@
-name: GitHub Depandabot Alerts
-on: [push]
 version: 2
 updates:
-# Updates for Github Actions used in the repo
-    - package-ecosystem: "github-actions"
-      directory: "/"
-      schedule:
-        interval: "daily"
-      target-branch: "main"
-# Updates for Gradle dependencies used in the app      
-    - package-ecosystem: gradle
-      directory: "/"
-      schedule:
-        interval: "daily"
-      open-pull-requests-limit: 10
-      target-branch: "main"
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "daily"
