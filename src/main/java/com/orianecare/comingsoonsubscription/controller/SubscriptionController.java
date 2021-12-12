@@ -3,6 +3,9 @@
  */
 package com.orianecare.comingsoonsubscription.controller;
 
+import java.io.IOException;
+
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +30,7 @@ public class SubscriptionController {
 	private UserEmailService userEmailService;
 
 	@PostMapping(path = "/subscription")
-	public ResponseEntity<SuccessResponse> saveEmail(@Valid @RequestBody SubscriptionRequest request){
+	public ResponseEntity<SuccessResponse> saveEmail(@Valid @RequestBody SubscriptionRequest request) throws MessagingException, IOException{
 		
 		return ResponseEntity.ok(userEmailService.saveEmail(request));
 	}

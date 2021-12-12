@@ -1,6 +1,11 @@
 package com.orianecare.comingsoonsubscription.exceptionhandling;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.io.IOException;
+
+import javax.mail.MessagingException;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.junit.jupiter.api.Test;
@@ -12,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+
+import nl.altindag.log.LogCaptor;
 /**
  * @author vennelakanti
  *
@@ -49,4 +56,19 @@ class GlobalExceptionHandlerTest {
 		assertEquals(HttpStatus.BAD_REQUEST, globalExceptionHandler.handleHttpMediaTypeNotSupported(ex, null, null, null).getStatusCode());
 	}
 
+	@Test
+	public void testHandleMessagingException() {
+		LogCaptor logCaptor = LogCaptor.forClass(GlobalExceptionHandler.class);
+	    logCaptor.setLogLevelToInfo();
+	    globalExceptionHandler.handleMessagingException(new MessagingException("Failed to send Email"));
+	    assertThat(logCaptor.getLogs()).hasSize(1);
+	}
+	
+	@Test
+	public void testHandleIOException() {
+		LogCaptor logCaptor = LogCaptor.forClass(GlobalExceptionHandler.class);
+	    logCaptor.setLogLevelToInfo();
+	    globalExceptionHandler.handleIOException(new IOException());
+	    assertThat(logCaptor.getLogs()).hasSize(1);
+	}
 }

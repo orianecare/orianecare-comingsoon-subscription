@@ -3,9 +3,12 @@
  */
 package com.orianecare.comingsoonsubscription.exceptionhandling;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.mail.MessagingException;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.HttpHeaders;
@@ -23,10 +26,13 @@ import com.orianecare.comingsoonsubscription.constants.SubscriptionServiceConsta
 import com.orianecare.comingsoonsubscription.response.ErrorResponse;
 import com.orianecare.comingsoonsubscription.response.ErrorResponseWrapper;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author vennelakanti
  *
  */
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
 
@@ -66,6 +72,17 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 		ErrorResponse response = new ErrorResponse(SubscriptionServiceConstants.HTTPMEDIATYPENOTSUPPORTEDEXCEPTIONCODE, SubscriptionServiceConstants.HTTPMEDIATYPENOTSUPPORTEDEXCEPTIONMESSAGE);
 		return new ResponseEntity<Object>(response, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(MessagingException.class)
+	public void handleMessagingException(MessagingException ex){
+	
+		log.error(ex.getMessage());
+
+	}
+	@ExceptionHandler(IOException.class)
+	public void handleIOException(IOException ex){
+		log.error(ex.getMessage());
 	}
 	
 }

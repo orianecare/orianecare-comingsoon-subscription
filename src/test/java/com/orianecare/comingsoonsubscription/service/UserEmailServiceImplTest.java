@@ -4,10 +4,14 @@
 package com.orianecare.comingsoonsubscription.service;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.io.IOException;
 import java.util.UUID;
+
+import javax.mail.MessagingException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,6 +25,7 @@ import com.orianecare.comingsoonsubscription.entity.UserEmailEntity;
 import com.orianecare.comingsoonsubscription.repo.UserEmailEntityRepo;
 import com.orianecare.comingsoonsubscription.request.SubscriptionRequest;
 import com.orianecare.comingsoonsubscription.response.SuccessResponse;
+import com.orianecare.comingsoonsubscription.service.impl.UserEmailServiceImpl;
 
 /**
  * @author vennelakanti
@@ -37,6 +42,9 @@ class UserEmailServiceImplTest {
 	
 	@Mock
 	private UserEmailEntityRepo userEmailEntityRepo;
+	
+	@Mock
+	private EmailSenderSerivce emailSenderService;
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -54,13 +62,17 @@ class UserEmailServiceImplTest {
 	}
 
 	/**
-	 * Test method for {@link com.orianecare.comingsoonsubscription.service.UserEmailServiceImpl#saveEmail(java.lang.String)}.
+	 * Test method for {@link com.orianecare.comingsoonsubscription.service.impl.UserEmailServiceImpl#saveEmail(java.lang.String)}.
+	 * @throws IOException 
+	 * @throws MessagingException 
 	 */
 	@Test
-	void testSaveEmail() {
+	void testSaveEmail() throws MessagingException, IOException {
 		when(userEmailEntityRepo.save(Mockito.any(UserEmailEntity.class))).thenReturn(userEmailEntity);
+		doNothing().when(emailSenderService).sendMessageWithAttachment(Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString());
 		SuccessResponse response= userEmailServiceImpl.saveEmail(subscriptionRequest);
 		verify(userEmailEntityRepo).save(Mockito.any(UserEmailEntity.class));
+		verify(emailSenderService).sendMessageWithAttachment(Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString());
 		assertEquals(subscriptionRequest.getRequestId(), response.getResponseId());
 		assertEquals("200", response.getStatusCode());
 		assertEquals("Email Saved Successfully", response.getMessage());

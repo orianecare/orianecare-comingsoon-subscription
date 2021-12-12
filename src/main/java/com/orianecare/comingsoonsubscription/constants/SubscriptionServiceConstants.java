@@ -16,4 +16,5 @@ public class SubscriptionServiceConstants {
 	public static String HTTPMESSAGENOTREADABLEEXCEPTIONMESSAGE="Unable to read the message. Please check the structure of thte body";
 	public static String HTTPMEDIATYPENOTSUPPORTEDEXCEPTIONCODE="10004";
 	public static String HTTPMEDIATYPENOTSUPPORTEDEXCEPTIONMESSAGE="Content-Type header must be 'application/json'";
+	
 }

@@ -6,7 +6,10 @@ package com.orianecare.comingsoonsubscription.controller;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
+import java.io.IOException;
 import java.util.UUID;
+
+import javax.mail.MessagingException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -46,9 +49,11 @@ class SubscriptionControllerTest {
 
 	/**
 	 * Test method for {@link com.orianecare.comingsoonsubscription.controller.SubscriptionController#saveEmail(com.orianecare.comingsoonsubscription.request.SubscriptionRequest)}.
+	 * @throws IOException 
+	 * @throws MessagingException 
 	 */
 	@Test
-	public void testSaveEmail() {
+	public void testSaveEmail() throws MessagingException, IOException {
 		SuccessResponse successResponse = new SuccessResponse(subscriptionRequest.getRequestId(), "200", "Email Saved Successfully");
 		when(userEmailService.saveEmail(subscriptionRequest)).thenReturn(successResponse);
 	    ResponseEntity<SuccessResponse>response= subscriptionController.saveEmail(subscriptionRequest);
