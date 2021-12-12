@@ -38,6 +38,10 @@ dependencies {
 	// https://mvnrepository.com/artifact/com.openpojo/openpojo
 	testImplementation 'com.openpojo:openpojo:0.9.1'
 	
+	// https://mvnrepository.com/artifact/io.github.hakky54/logcaptor
+	testImplementation 'io.github.hakky54:logcaptor:2.7.2'
+	
+	
 }
 
 test {
