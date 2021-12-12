@@ -1,4 +1,5 @@
-
+name: GitHub Depandabot Alerts
+on: [push]
 version: 2
 updates:
 # Updates for Github Actions used in the repo
